@@ -99,7 +99,7 @@ To Connect to postgreSQL server running from Docker Container
 > The following field is same as used to make the docker container specified above as flags.
 
 	
-	Changes Made
+### Changes Made
 In this modified version, the following files have been changed:
 
 CodeMirror.scss: Updated the styling for CodeMirror, a code editor component used in the Apache AGE Viewer. The changes include customizing the theme and adding additional styling for improved user experience.
