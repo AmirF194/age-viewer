@@ -98,6 +98,13 @@ To Connect to postgreSQL server running from Docker Container
 - Password - postgresPW
 > The following field is same as used to make the docker container specified above as flags.
 
+	
+	Changes Made
+In this modified version, the following files have been changed:
+
+CodeMirror.scss: Updated the styling for CodeMirror, a code editor component used in the Apache AGE Viewer. The changes include customizing the theme and adding additional styling for improved user experience.
+
+CodeMirrorWrapper.jsx: Updated the CodeMirrorWrapper component, which provides an interface for editing and executing Cypher queries. The changes include improving the user-friendliness of the component, such as adding keyboard shortcuts and command history functionality.
 
 
 # License
