@@ -29,34 +29,41 @@ const CodeMirrorWrapper = ({
   value, onChange, commandHistory, onClick,
 }) => {
   const [commandHistoryIndex, setCommandHistoryIndex] = useState(commandHistory.length);
+  const [loading, setLoading] = useState(false); // Loading state
   const codeMirrorRef = useRef();
+
+  const executeCommand = async (editor) => {
+    setLoading(true);
+    try {
+      await onClick();
+      editor.setValue('');
+      setCommandHistoryIndex(-1);
+    } catch (error) {
+      // Handle or display the error
+      console.error(error);
+    }
+    setLoading(false);
+  };
 
   return (
     <CodeMirror
       id="editor"
       ref={codeMirrorRef}
-      value={value}
+      value={loading ? 'Loading...' : value} // Display loading state
       options={{
         keyMap: 'sublime',
         mode: 'cypher',
-        placeholder: 'Create a query...',
+        placeholder: 'SELECT * FROM public.user_table', // Provide an example
         tabSize: 4,
         lineNumbers: true,
         spellcheck: false,
         autocorrect: false,
         autocapitalize: false,
         lineNumberFormatter: () => '$',
+        readOnly: loading, // Disable interaction during loading
         extraKeys: {
-          'Shift-Enter': (editor) => {
-            onClick();
-            editor.setValue('');
-            setCommandHistoryIndex(-1);
-          },
-          'Ctrl-Enter': (editor) => {
-            onClick();
-            editor.setValue('');
-            setCommandHistoryIndex(-1);
-          },
+          'Shift-Enter': executeCommand,
+          'Ctrl-Enter': executeCommand,
           'Ctrl-Up': (editor) => {
             if (commandHistory.length === 0) {
               return;
